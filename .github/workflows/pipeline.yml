@@ -31,7 +31,7 @@ jobs:
       run : |
         echo "GITHUB_HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
         echo MLINVOICE_VERSION=$(curl -s -o -  https://raw.githubusercontent.com/emaijala/MLInvoice/master/version.php | grep softwareVersion | sed "s|$softwareVersion.*'\(.*\)';|\1|") >> $GITHUB_ENV
-        if [[ $MLINVOICE_VERSION -ne $(cat ./mlinvoice_version.txt)]]; then echo "::set-output name=version_changed::true"; echo $MLINVOICE_VERSION >> ./mlinvoice_version.txt; else echo "::set-output name=version_changed::false"; fi
+        if [[ ! -f ./mlinvoice_version.txt ]] || [[ $MLINVOICE_VERSION -ne $(cat ./mlinvoice_version.txt)]]; then echo "::set-output name=version_changed::true"; echo $MLINVOICE_VERSION >> ./mlinvoice_version.txt; else echo "::set-output name=version_changed::false"; fi
 
     - name: Commit changed version number
       id: commit
