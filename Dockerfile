@@ -1,6 +1,11 @@
+## Small trick to get composer binary to other images
 FROM composer:2 as composer
 
+
+## The base image for building final images
 FROM debian:bullseye-slim as base
+
+# Install dependencies
 RUN apt update && apt upgrade \
     && apt install -y --no-install-recommends \
         git \
@@ -18,9 +23,11 @@ RUN apt update && apt upgrade \
 
 WORKDIR /build
 
+# Get source clone. We'll use master branch.
 RUN git clone https://github.com/emaijala/MLInvoice.git .; \
     git checkout master;
 
+## Install dependencies
 FROM base as build-php
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -30,13 +37,18 @@ ARG COMPOSER_ALLOW_SUPERUSER 1
 RUN composer install --no-dev;
 
 
-# Base for final images
+## Base for final images
 FROM base as final-codebase
+
+# Make source directory and move build filest there.
 RUN mkdir -p /usr/src/mlinvoice; \
     mv /build/* /usr/src/mlinvoice;
+
+# Copy built composer stuff
 COPY --from=build-php /build/vendor /usr/src/mlinvoice/vendor
 
-# Development image
+
+# Final image to be used as base in other Dockerfiles. Please remember licensing.
 FROM debian:bullseye-slim as final-base
 
 RUN apt update && apt -y upgrade; \
@@ -74,7 +86,7 @@ COPY --from=final-codebase --chown=www-data:www-data /usr/src/mlinvoice /usr/src
 
 
 
-# FPM image
+## Build final FPM image
 FROM php:fpm as final-php-fpm
 RUN apt update && apt -y upgrade; \
     #
