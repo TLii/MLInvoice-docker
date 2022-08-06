@@ -75,7 +75,7 @@ RUN apt update && apt -y upgrade; \
     # Modify settings #
     #
     # Use php production config
-    mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini";
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini";
 
 # Ensure we are installing on a volume. Entrypoint will copy the code here
 VOLUME /var/www/html
