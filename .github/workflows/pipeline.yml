@@ -71,7 +71,7 @@ jobs:
         # Docker build labels passed via --label
         #labels: # optional
         # Docker build target passed via --target
-        target: base-final # optional
+        target: final-base # optional
         # Docker registry username
         username:  ${{ secrets.REGISTRY_USER }}  # optional
         # Docker registry password
@@ -98,7 +98,7 @@ jobs:
         # Docker build labels passed via --label
         #labels: # optional
         # Docker build target passed via --target
-        target: base-final # optional
+        target: final-base # optional
         # Docker registry username
         username:  ${{ secrets.REGISTRY_USER }}  # optional
         # Docker registry password
@@ -125,7 +125,7 @@ jobs:
         # Docker build labels passed via --label
         #labels: # optional
         # Docker build target passed via --target
-        target: serve-php-fpm # optional
+        target: final-php-fpm # optional
         # Docker registry username
         username:  ${{ secrets.REGISTRY_USER }}  # optional
         # Docker registry password
@@ -152,7 +152,7 @@ jobs:
         # Docker build labels passed via --label
         #labels: # optional
         # Docker build target passed via --target
-        target: serve-php-fpm # optional
+        target: final-php-fpm # optional
         # Docker registry username
         username:  ${{ secrets.REGISTRY_USER }}  # optional
         # Docker registry password
@@ -179,7 +179,7 @@ jobs:
         # Docker build labels passed via --label
         #labels: # optional
         # Docker build target passed via --target
-        target: serve-php-apache2 # optional
+        target: final-php-apache2 # optional
         # Docker registry username
         username:  ${{ secrets.REGISTRY_USER }}  # optional
         # Docker registry password
@@ -206,7 +206,7 @@ jobs:
         # Docker build labels passed via --label
         #labels: # optional
         # Docker build target passed via --target
-        target: serve-php-apache2 # optional
+        target: final-php-apache2 # optional
         # Docker registry username
         username:  ${{ secrets.REGISTRY_USER }}  # optional
         # Docker registry password
