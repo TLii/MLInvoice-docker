@@ -113,7 +113,7 @@ RUN apt update && apt -y upgrade; \
 VOLUME /var/www/html
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-COPY --from=final --chown=www-data:www-data /final /usr/src/mlinvoice
+COPY --from=final-codebase --chown=www-data:www-data /usr/src/mlinvoice /usr/src/mlinvoice
 COPY --chown=www-data:www-data config_si.php /tmp
 
 RUN chmod a+x /docker-entrypoint.sh;
