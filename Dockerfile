@@ -70,12 +70,7 @@ RUN apt update && apt -y upgrade; \
     apt-get -y autoremove; \
     apt-get -y clean; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    rm -rf /var/lib/apt/lists/*; \
-    #
-    # Modify settings #
-    #
-    # Use php production config
-    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini";
+    rm -rf /var/lib/apt/lists/*; 
 
 # Ensure we are installing on a volume. Entrypoint will copy the code here
 VOLUME /var/www/html
