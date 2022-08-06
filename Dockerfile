@@ -75,7 +75,7 @@ COPY --from=final-codebase --chown=www-data:www-data /usr/src/mlinvoice /usr/src
 
 
 # FPM image
-FROM php:fpm as serve-php-fpm
+FROM php:fpm as final-php-fpm
 RUN apt update && apt -y upgrade; \
     #
     # Install dependencies #
