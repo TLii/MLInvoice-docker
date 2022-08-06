@@ -135,3 +135,51 @@ WORKDIR /var/www/html
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD ["php-fpm"]
+
+
+
+## Build final Apache 2 image
+FROM php:apache2 as final-php-apache2
+RUN apt update && apt -y upgrade; \
+    #
+    # Install dependencies #
+    apt -y install \
+    cron \
+    libzip-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libc-client-dev \
+    libkrb5-dev \
+    rsync \
+    openssl \
+    curl \
+    ; \
+    #
+    # Install php modules #
+    docker-php-ext-install -j"$(nproc)" xsl intl mysqli mcrypt zip; \
+    #
+    # Clean up afterwards #
+    apt-get -y autoremove; \
+    apt-get -y clean; \
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+    rm -rf /var/lib/apt/lists/*; \
+    #
+    # Modify settings #
+    # Use php production config
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini";
+# Make install dir and separate directory for configs. Entrypoint will link them.
+
+# Ensure we are installing on a volume
+VOLUME /var/www/html
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY --from=final-codebase --chown=www-data:www-data /usr/src/mlinvoice /usr/src/mlinvoice
+
+RUN chmod a+x /docker-entrypoint.sh;
+
+WORKDIR /var/www/html
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["apache2-foreground"]
