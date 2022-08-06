@@ -8,12 +8,12 @@ FROM debian:bullseye-slim as base
 # Install dependencies
 RUN apt update && apt upgrade \
     && apt install -y --no-install-recommends \
-        git \
+        ca-certificates \
+    git \
         php-cli \    
         php-xsl \    
         php-intl  \    
         php-mysqli  \    
-        php-mcrypt  \    
         php-zip \ 
         curl \
         git \
@@ -138,7 +138,7 @@ CMD ["php-fpm"]
 
 
 ## Build final Apache 2 image
-FROM php:apache2 as final-php-apache2
+FROM php:apache as final-php-apache2
 RUN apt update && apt -y upgrade; \
     #
     # Install dependencies #
