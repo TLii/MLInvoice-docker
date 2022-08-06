@@ -66,7 +66,7 @@ jobs:
         # Name of the Docker image
         image: mlinvoice/mlinvoice
         # Tags override for Docker image
-        tags: base, base-latest, base-${{ env.BRANCH }}-latest, base-${{ env.BRANCH }}, base-${{ env.BUILD_VERSION }}, base-${{ env.GITHUB_HASH }}, base-${{ MLINVOICE_VERSION }}-${{ env.BRANCH }}, base-${{ MLINVOICE_VERSION }}  # optional
+        tags: base, base-latest, base-${{ env.BRANCH }}-latest, base-${{ env.BRANCH }}, base-${{ env.BUILD_VERSION }}, base-${{ env.GITHUB_HASH }}, base-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}, base-${{ env.MLINVOICE_VERSION }}  # optional
         # Target Docker registry
         registry: ${{ secrets.REGISTRY_URL }}
         # Location of Dockerfile, if not Dockerfile in root directory
@@ -93,7 +93,7 @@ jobs:
         # Name of the Docker image
         image: mlinvoice/mlinvoice
         # Tags override for Docker image
-        tags: base-${{ env.BRANCH }}-latest, base-${{ env.BRANCH }}, base-${{ env.BUILD_VERSION }}, base-${{ env.GITHUB_HASH }}, base-${{ MLINVOICE_VERSION }}-${{ env.BRANCH }} # optional
+        tags: base-${{ env.BRANCH }}-latest, base-${{ env.BRANCH }}, base-${{ env.BUILD_VERSION }}, base-${{ env.GITHUB_HASH }}, base-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }} # optional
         # Target Docker registry
         registry: ${{ secrets.REGISTRY_URL }}
         # Location of Dockerfile, if not Dockerfile in root directory
@@ -120,7 +120,7 @@ jobs:
         # Name of the Docker image
         image: mlinvoice/mlinvoice
         # Tags override for Docker image
-        tags: fpm, fpm-latest, fpm-${{ env.BRANCH }}-latest, fpm-${{ env.BRANCH }}, fpm-${{ env.BUILD_VERSION }}, fpm-${{ env.GITHUB_HASH }}, $fpm-{{ MLINVOICE_VERSION }}, fpm-${{ MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
+        tags: fpm, fpm-latest, fpm-${{ env.BRANCH }}-latest, fpm-${{ env.BRANCH }}, fpm-${{ env.BUILD_VERSION }}, fpm-${{ env.GITHUB_HASH }}, $fpm-{{ env.MLINVOICE_VERSION }}, fpm-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
         registry: ${{ secrets.REGISTRY_URL }}
         # Location of Dockerfile, if not Dockerfile in root directory
@@ -147,7 +147,7 @@ jobs:
         # Name of the Docker image
         image: mlinvoice/mlinvoice
         # Tags override for Docker image
-        tags: fpm-${{ env.BRANCH }}-latest, fpm-${{ env.BRANCH }}, fpm-${{ env.BUILD_VERSION }}, fpm-${{ env.GITHUB_HASH }}, fpm-${{ MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
+        tags: fpm-${{ env.BRANCH }}-latest, fpm-${{ env.BRANCH }}, fpm-${{ env.BUILD_VERSION }}, fpm-${{ env.GITHUB_HASH }}, fpm-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
         registry: ${{ secrets.REGISTRY_URL }}
         # Location of Dockerfile, if not Dockerfile in root directory
@@ -174,7 +174,7 @@ jobs:
         # Name of the Docker image
         image: mlinvoice/mlinvoice
         # Tags override for Docker image
-        tags: latest, apache2, apache2-latest, apache2-${{ env.BRANCH }}-latest, apache2-${{ env.BRANCH }}, apache2-${{ env.BUILD_VERSION }}, apache2-${{ env.GITHUB_HASH }}, ${{ MLINVOICE_VERSION }}, ${{ MLINVOICE_VERSION }}-latest, apache2-${{ MLINVOICE_VERSION }}, apache2-${{ MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
+        tags: latest, apache2, apache2-latest, apache2-${{ env.BRANCH }}-latest, apache2-${{ env.BRANCH }}, apache2-${{ env.BUILD_VERSION }}, apache2-${{ env.GITHUB_HASH }}, ${{ env.MLINVOICE_VERSION }}, ${{ env.MLINVOICE_VERSION }}-latest, apache2-${{ env.MLINVOICE_VERSION }}, apache2-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
         registry: ${{ secrets.REGISTRY_URL }}
         # Location of Dockerfile, if not Dockerfile in root directory
@@ -201,7 +201,7 @@ jobs:
         # Name of the Docker image
         image: mlinvoice/mlinvoice
         # Tags override for Docker image
-        tags: apache2-${{ env.BRANCH }}-latest, apache2-${{ env.BRANCH }}, apache2-${{ env.BUILD_VERSION }}, apache2-${{ env.GITHUB_HASH }}, ${{ MLINVOICE_VERSION }}-${{ env.BRANCH }}, apache2-${{ MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
+        tags: apache2-${{ env.BRANCH }}-latest, apache2-${{ env.BRANCH }}, apache2-${{ env.BUILD_VERSION }}, apache2-${{ env.GITHUB_HASH }}, ${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}, apache2-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
         registry: ${{ secrets.REGISTRY_URL }}
         # Location of Dockerfile, if not Dockerfile in root directory
