@@ -115,7 +115,7 @@ jobs:
         # Name of the Docker image
         image: mlinvoice/mlinvoice
         # Tags override for Docker image
-        tags: fpm, fpm-latest, fpm-${{ env.BRANCH }}-latest, fpm-${{ env.BRANCH }}, fpm-${{ env.BUILD_VERSION }}, fpm-${{ env.GITHUB_HASH }}, $fpm-{{ env.MLINVOICE_VERSION }}, fpm-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
+        tags: fpm, fpm-latest, fpm-${{ env.BRANCH }}-latest, fpm-${{ env.BRANCH }}, fpm-${{ env.BUILD_VERSION }}, fpm-${{ env.GITHUB_HASH }}, fpm-${{ env.MLINVOICE_VERSION }}, fpm-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
         registry: ${{ secrets.REGISTRY_URL }}
         # Location of Dockerfile, if not Dockerfile in root directory
