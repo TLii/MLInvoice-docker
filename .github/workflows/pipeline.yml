@@ -40,7 +40,6 @@ jobs:
       run: |
         git config --local user.email "github-actions@github.com"
         git config --local user.name "github-actions"
-        git 
         if [-z "$(git status --porcelain)"]; then
           echo "::set-output name=push::false"
         else
