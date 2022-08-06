@@ -47,11 +47,6 @@ jobs:
           echo "::set-output name=push::true"
         fi
       shell: bash
-    - name: Push changes
-      if: steps.commit.outputs.push == 'true'
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set build version
       run: |
@@ -242,3 +237,8 @@ jobs:
     #     git config user.email github-actions@github.com
     #     git commit -am "Pipeline/Updated Chart version and App version"
     #     git push
+    - name: Push version change only if image creation succeeded.
+      if: steps.commit.outputs.push == 'true'
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
