@@ -66,7 +66,7 @@ group=www-data
 	fi
 
 # Test for existing installation and install as necessary; original code by Docker, Inc, edited by TLii
-if ([ ! -f /var/www/html/install.lock ] && [ ! -f /var/www/html/version.php ]) || [[ -n $UPGRADE_WITH_IMAGE ]]; then
+if { [[ ! -f /var/www/html/install.lock ]] && [[ ! -f /var/www/html/version.php ]]; } || [[ -n $UPGRADE_WITH_IMAGE ]]; then
 
     cd "/var/www/html"
 
@@ -120,7 +120,7 @@ if ([ ! -f /var/www/html/install.lock ] && [ ! -f /var/www/html/version.php ]) |
 	# 	rsync -q -r -b -t -u --backup-dir=$PWD/backup/docker-upgrade-backups --update usr/src/mlinvoice/$modulePath $PWD/$modulePath
 	# done
 	echo >&2 "Complete! MLInvoice has been successfully copied to $PWD"
-file
+fi
 
 # Replace config directives
 sed -i -r "s/define\('_DB_SERVER_', '.*?'\);/define('_DB_SERVER_', '$DATABASE_HOST');/" /var/www/html/config.php.sample && \
