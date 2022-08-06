@@ -10,7 +10,7 @@ This repository contains source code of an unofficial Docker image for MLInvoice
 **This is still very much experimental, and might break at any point.** Contributions are welcome, but might ultimately not get included. I'm trying to keep the application as close to upstream source as possible and only replace or add to the codebase at container level if necessary for configuring the container. If you want to make more changes, I suggest using this as parent image.
 
 ## Changes to vanilla source code
-Nothing yet.
+As you might have noticed, we're not using upstream Dockerfile. The Dockerfile here is completely restructured. @emaijala 
 
 ## Installation and usage
 This image only builds the MLInvoice application and serves it, depending on your target stage, either with php-fpm or apache2.
