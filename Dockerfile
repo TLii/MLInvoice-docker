@@ -9,14 +9,13 @@ FROM debian:bullseye-slim as base
 RUN apt update && apt -y upgrade \
     && apt install -y --no-install-recommends \
         ca-certificates \
-    git \
+        git \
         php-cli \    
         php-xsl \    
         php-intl  \    
         php-mysqli  \    
         php-zip \ 
         curl \
-        git \
         gnupg \
         ; \
         mkdir /build
