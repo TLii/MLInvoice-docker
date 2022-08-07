@@ -89,8 +89,14 @@ RUN apt update && apt -y upgrade; \
     cron \
     libzip-dev \
     libc-client-dev \
-    libxml2 -dev\
+    libicu-dev \
+    libicu67 \
+    libxml2-dev\
+    libxml2 \
     libxslt1-dev \
+    libxslt1 \
+    libmcrypt-dev \
+    libmcrypt4 \
     mariadb-client \
     rsync \
     openssl \
@@ -143,8 +149,14 @@ RUN apt update && apt -y upgrade; \
     cron \
     libzip-dev \
     libc-client-dev \
-    libxml2 -dev\
+    libicu-dev \
+    libicu67 \
+    libxml2-dev\
+    libxml2 \
     libxslt1-dev \
+    libxslt1 \
+    libmcrypt-dev \
+    libmcrypt4 \
     mariadb-client \
     rsync \
     openssl \
