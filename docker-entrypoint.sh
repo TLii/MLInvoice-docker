@@ -31,7 +31,7 @@ group=www-data
 	[[ -z $DATABASE_PASSWORD ]] && (echo "ERROR: you need to set DATABASE_PASSWORD to continue"; exit 78)
 	[[ -z $DATABASE_HOST ]] && (echo "ERROR: you need to set DATABASE_HOST to continue"; exit 78)
 	[[ -z $SITE_URL ]] && echo "WARN: no SITE_URL set, using localhost" && SITE_URL='localhost'
-	[[ -z $UPGRADE_WITH_IMAGE ]] && UPGRADE_WITH_IMAGE=false
+	[[ ! $UPGRADE_WITH_IMAGE ]] && UPGRADE_WITH_IMAGE=false;
 
 
 # Setup correct user; (c) Docker, Inc
