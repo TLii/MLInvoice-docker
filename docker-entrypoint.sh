@@ -20,7 +20,7 @@
 # Partially derived from Docker Hub's official images; 
 # Copyright 2014 Docker, Inc.set -e
 
-set -Eeuo pipefail
+set -Eeo pipefail
 
 user=www-data
 group=www-data
