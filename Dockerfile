@@ -161,7 +161,7 @@ RUN apt update && apt -y upgrade; \
     libxml2-dev\
     libxml2 \
     libxslt1-dev \
-    libxslt1 \
+    libxslt1.1 \
     libmcrypt-dev \
     libmcrypt4 \
     mariadb-client \
