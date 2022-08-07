@@ -34,7 +34,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 WORKDIR /build
 ARG COMPOSER_ALLOW_SUPERUSER 1
 
-RUN composer install --no-dev;
+RUN apt update && apt install zip; \
+    composer install --no-dev;
 
 
 ## Base for final images
