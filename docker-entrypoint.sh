@@ -126,7 +126,7 @@ fi
 sed -i -r "s/define\('_DB_SERVER_', '.*?'\);/define('_DB_SERVER_', '$DATABASE_HOST');/" /var/www/html/config.php.sample && \
 sed -i -r "s/define\('_DB_USERNAME_', '.*?'\);/define('_DB_USERNAME_', '$DATABASE_USER');/" /var/www/html/config.php.sample && \
 sed -i -r "s/define\('_DB_PASSWORD_', '.*?'\);/define('_DB_PASSWORD_', '$DATABASE_PASSWORD');/" /var/www/html/config.php.sample
-sed -i -r "s/define\('_DB_NAME_', '.*?'\);/define('_DB_PASSWORD_', '$DATABASE_NAME');/" /var/www/html/config.php.sample
+sed -i -r "s/define\('_DB_NAME_', '.*?'\);/define('_DB_NAME_', '$DATABASE_NAME');/" /var/www/html/config.php.sample
 if [[ -< $ENCRYPTION_KEY ]]; then
     sed -i -r "s/define\('_ENCRYPTION_KEY_', '.*?'\);/define('_ENCRYPTION_KEY_', '$ENCRYPTION_KEY');/" /var/www/html/config.php.sample;
 else
