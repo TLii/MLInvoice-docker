@@ -88,18 +88,21 @@ RUN apt update && apt -y upgrade; \
     apt -y install \
     cron \
     libzip-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
     libc-client-dev \
-    libkrb5-dev \
+    libxml2 -dev\
+    libxslt1-dev \
+    mariadb-client \
     rsync \
     openssl \
     curl \
     ; \
     #
     # Install php modules #
-    docker-php-ext-install -j"$(nproc)" xsl intl mysqli mcrypt zip; \
+    docker-php-ext-install -j"$(nproc)" xsl; \
+    docker-php-ext-install -j"$(nproc)" intl; \
+    docker-php-ext-install -j"$(nproc)" mysqli; \
+    docker-php-ext-install -j"$(nproc)" mcrypt; \
+    docker-php-ext-install -j"$(nproc)" zip; \
     #
     # Clean up afterwards #
     apt-get -y autoremove; \
@@ -139,18 +142,21 @@ RUN apt update && apt -y upgrade; \
     apt -y install \
     cron \
     libzip-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
     libc-client-dev \
-    libkrb5-dev \
+    libxml2 -dev\
+    libxslt1-dev \
+    mariadb-client \
     rsync \
     openssl \
     curl \
     ; \
     #
     # Install php modules #
-    docker-php-ext-install -j"$(nproc)" xsl intl mysqli mcrypt zip; \
+    docker-php-ext-install -j"$(nproc)" xsl; \
+    docker-php-ext-install -j"$(nproc)" intl; \
+    docker-php-ext-install -j"$(nproc)" mysqli; \
+    docker-php-ext-install -j"$(nproc)" mcrypt; \
+    docker-php-ext-install -j"$(nproc)" zip; \
     #
     # Clean up afterwards #
     apt-get -y autoremove; \
