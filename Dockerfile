@@ -17,7 +17,8 @@ RUN apt update && apt -y upgrade \
         php-zip \ 
         curl \
         gnupg \
-        ; \
+        zip \
+    ; \
         mkdir /build
 
 WORKDIR /build
@@ -56,11 +57,16 @@ RUN apt update && apt -y upgrade; \
     apt -y install \
     cron \
     libzip-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
     libc-client-dev \
-    libkrb5-dev \
+    libicu-dev \
+    libicu67 \
+    libxml2-dev\
+    libxml2 \
+    libxslt1-dev \
+    libxslt1.1 \
+    libmcrypt-dev \
+    libmcrypt4 \
+    mariadb-client \
     rsync \
     openssl \
     curl \
@@ -94,7 +100,7 @@ RUN apt update && apt -y upgrade; \
     libxml2-dev\
     libxml2 \
     libxslt1-dev \
-    libxslt1 \
+    libxslt1.1 \
     libmcrypt-dev \
     libmcrypt4 \
     mariadb-client \
@@ -107,7 +113,7 @@ RUN apt update && apt -y upgrade; \
     docker-php-ext-install -j"$(nproc)" xsl; \
     docker-php-ext-install -j"$(nproc)" intl; \
     docker-php-ext-install -j"$(nproc)" mysqli; \
-    docker-php-ext-install -j"$(nproc)" mcrypt; \
+    pecl install mcrypt && docker-php-ext-enable mcrypt; \
     docker-php-ext-install -j"$(nproc)" zip; \
     #
     # Clean up afterwards #
@@ -167,7 +173,7 @@ RUN apt update && apt -y upgrade; \
     docker-php-ext-install -j"$(nproc)" xsl; \
     docker-php-ext-install -j"$(nproc)" intl; \
     docker-php-ext-install -j"$(nproc)" mysqli; \
-    docker-php-ext-install -j"$(nproc)" mcrypt; \
+    pecl install mcrypt && docker-php-ext-enable mcrypt; \
     docker-php-ext-install -j"$(nproc)" zip; \
     #
     # Clean up afterwards #
