@@ -67,6 +67,8 @@ RUN apt update && apt -y upgrade; \
     libxslt1.1 \
     libmcrypt-dev \
     libmcrypt4 \
+    libzip-dev \
+    libzip4 \
     mariadb-client \
     rsync \
     openssl \
@@ -104,6 +106,8 @@ RUN apt update && apt -y upgrade; \
     libxslt1.1 \
     libmcrypt-dev \
     libmcrypt4 \
+    libzip-dev \
+    libzip4 \
     mariadb-client \
     rsync \
     openssl \
@@ -164,6 +168,8 @@ RUN apt update && apt -y upgrade; \
     libxslt1.1 \
     libmcrypt-dev \
     libmcrypt4 \
+    libzip-dev \
+    libzip4 \
     mariadb-client \
     rsync \
     openssl \
