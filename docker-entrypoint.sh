@@ -31,7 +31,7 @@ group=www-data
 	[[ -z $DATABASE_PASSWORD ]] && (echo "ERROR: you need to set DATABASE_PASSWORD to continue"; exit 78)
 	[[ -z $DATABASE_HOST ]] && (echo "ERROR: you need to set DATABASE_HOST to continue"; exit 78)
 	[[ -z $SITE_URL ]] && echo "WARN: no SITE_URL set, using localhost" && SITE_URL='localhost'
-	[[ ! $UPGRADE_WITH_IMAGE ]] && UPGRADE_WITH_IMAGE=false;
+	[[ -n $UPGRADE_WITH_IMAGE ]] && UPGRADE=true;
 
 
 # Setup correct user; (c) Docker, Inc
@@ -67,7 +67,7 @@ group=www-data
 	fi
 
 # Test for existing installation and install as necessary; original code by Docker, Inc, edited by TLii
-if { [[ ! -f /var/www/html/install.lock ]] && [[ ! -f /var/www/html/version.php ]]; } || [[ -n $UPGRADE_WITH_IMAGE ]]; then
+if { [[ ! -f /var/www/html/install.lock ]] && [[ ! -f /var/www/html/version.php ]]; } || $UPGRADE=true; then
 
     cd "/var/www/html"
 
