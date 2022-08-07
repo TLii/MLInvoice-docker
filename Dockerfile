@@ -6,7 +6,7 @@ FROM composer:2 as composer
 FROM debian:bullseye-slim as base
 
 # Install dependencies
-RUN apt update && apt upgrade \
+RUN apt update && apt -y upgrade \
     && apt install -y --no-install-recommends \
         ca-certificates \
     git \
