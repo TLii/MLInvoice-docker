@@ -30,7 +30,8 @@ group=www-data
 	[[ -z $DATABASE_USER ]] && (echo "ERROR: you need to set DATABASE_USER to continue"; exit 78)
 	[[ -z $DATABASE_PASSWORD ]] && (echo "ERROR: you need to set DATABASE_PASSWORD to continue"; exit 78)
 	[[ -z $DATABASE_HOST ]] && (echo "ERROR: you need to set DATABASE_HOST to continue"; exit 78)
-	[[ -z $SITE_URL ]] && (echo "ERROR: you need to set SITE_URL to continue"; exit 78)
+	[[ -z $SITE_URL ]] && echo "WARN: no SITE_URL set, using localhost" && SITE_URL='localhost'
+	[[ -z $UPGRADE_WITH_IMAGE ]] && UPGRADE_WITH_IMAGE=false
 
 
 # Setup correct user; (c) Docker, Inc
@@ -128,10 +129,10 @@ sed -i -r "s/define\('_DB_USERNAME_', '.*?'\);/define('_DB_USERNAME_', '$DATABAS
 sed -i -r "s/define\('_DB_PASSWORD_', '.*?'\);/define('_DB_PASSWORD_', '$DATABASE_PASSWORD');/" /var/www/html/config.php.sample
 sed -i -r "s/define\('_DB_NAME_', '.*?'\);/define('_DB_PASSWORD_', '$DATABASE_NAME');/" /var/www/html/config.php.sample
 if [[ -< $ENCRYPTION_KEY ]]; then
-    sed -i -r "s/define\('_ENCRYPTION_KEY_', '.*?'\);/define('_ENCRYPTION_KEY_', '$ENCRYPTION_KEY');/" /var/www/html/config.php.sample
+    sed -i -r "s/define\('_ENCRYPTION_KEY_', '.*?'\);/define('_ENCRYPTION_KEY_', '$ENCRYPTION_KEY');/" /var/www/html/config.php.sample;
 else
     ENCRYPTION_KEY=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 132 ; echo '')
-    sed -i -r "s/define\('_ENCRYPTION_KEY_', '.*?'\);/define('_ENCRYPTION_KEY_', '$ENCRYPTION_KEY');/" /var/www/html/config.php.sample
+    sed -i -r "s/define\('_ENCRYPTION_KEY_', '.*?'\);/define('_ENCRYPTION_KEY_', '$ENCRYPTION_KEY');/" /var/www/html/config.php.sample;
 fi
 if [[ -n $FORCE_HTTPS ]]; then
     sed -i -r "s/\/\/define\('_FORCE_HTTPS_', '.*?'\);/define('_FORCE_HTTPS_', true);/" /var/www/html/config.php.sample
