@@ -25,7 +25,7 @@ WORKDIR /build
 
 # Get source clone. We'll use master branch.
 RUN git clone https://github.com/emaijala/MLInvoice.git .; \
-    git checkout master;
+    git checkout release2;
 
 ## Install dependencies
 FROM base as build-php
