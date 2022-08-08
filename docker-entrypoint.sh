@@ -118,7 +118,9 @@ if { [[ ! -f /var/www/html/install.lock ]] && [[ ! -f /var/www/html/version.php 
 	# ; do
 	# 	modulePath="${modulePath#/usr/src/mlinvoice/}"
 	# 	rsync -q -r -b -t -u --backup-dir=$PWD/backup/docker-upgrade-backups --update usr/src/mlinvoice/$modulePath $PWD/$modulePath
-	# done
+	# done¨
+	[[ ! -f /var/www/html/install.lock ]] && mysql --user=$DATABASE_USER --password=$DATABASE_PASSWORD --host=$DATABASE_HOST --database=$DATABASE_NAME /var/www/html/create_database.sql
+	touch /var/www/html/install.lock
 	echo >&2 "Complete! MLInvoice has been successfully copied to $PWD"
 fi
 
