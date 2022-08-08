@@ -90,7 +90,7 @@ COPY --from=final-codebase --chown=www-data:www-data /usr/src/mlinvoice /usr/src
 
 
 ## Build final FPM image
-FROM php:fpm as final-php-fpm
+FROM php:7-fpm-bullseye as final-php-fpm
 RUN apt update && apt -y upgrade; \
     #
     # Install dependencies #
@@ -152,7 +152,7 @@ CMD ["php-fpm"]
 
 
 ## Build final Apache 2 image
-FROM php:apache as final-php-apache2
+FROM php:7-apache-bullseye as final-php-apache2
 RUN apt update && apt -y upgrade; \
     #
     # Install dependencies #
