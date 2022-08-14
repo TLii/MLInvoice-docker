@@ -202,6 +202,8 @@ COPY --from=final-codebase --chown=www-data:www-data /usr/src/mlinvoice /usr/src
 
 RUN chmod a+x /docker-entrypoint.sh;
 
+EXPOSE 80
+
 WORKDIR /var/www/html
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
