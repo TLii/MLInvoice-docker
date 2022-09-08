@@ -32,6 +32,8 @@ group=www-data
 	[[ -z $DATABASE_HOST ]] && (echo "ERROR: you need to set DATABASE_HOST to continue"; exit 78)
 	[[ -z $SITE_URL ]] && echo "WARN: no SITE_URL set, using localhost" && SITE_URL='localhost'
 
+# Install entrypoint dependencies
+curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver > /usr/local/bin/semver
 
 # Setup correct user; (c) Docker, Inc
 	if [[ "$1" == apache2* ]] || [ "$1" = 'php-fpm' ]; then
@@ -66,7 +68,9 @@ group=www-data
 	fi
 
 # Test for existing installation and install as necessary; original code by Docker, Inc, edited by TLii
-if { [[ ! -f /var/www/html/install.lock ]] && [[ ! -f /var/www/html/version.php ]]; }; then
+if { { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]] } && [[ $(semver compare $(cat /var/www/html/version.php | grep softwareVersion | sed "s|$softwareVersion.*'\(.*\)';|\1|") $(cat /usr/src/mlinvoice/version.php | grep softwareVersion | sed "s|$softwareVersion.*'\(.*\)';|\1|")) -le 0 ]] }; then
+
+	# Test that we are not overwriting a more recent version
 
     cd "/var/www/html"
 
