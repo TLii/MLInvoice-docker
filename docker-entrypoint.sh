@@ -75,9 +75,9 @@ if { [[ ! -f /var/www/html/install.lock ]] && [[ ! -f /var/www/html/version.php 
 		chown "$user:$group" .
 	fi
 
-	echo >&2 "MLInvoice not found in $PWD - copying now..."
+	echo >&1 "MLInvoice not found in $PWD - copying now..."
 	if [ -n "$(find . -mindepth 1 -maxdepth 1)" ]; then
-		echo >&2 "WARNING: $PWD is not empty! (copying anyhow)"
+		echo >&1 "WARNING: $PWD is not empty! (copying anyhow)"
 	fi
 
 	sourceTarArgs=(
