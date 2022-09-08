@@ -94,6 +94,10 @@ if { [[ ! -f /var/www/html/install.lock ]] && [[ ! -f /var/www/html/version.php 
 		# avoid "tar: .: Cannot utime: Operation not permitted" and "tar: .: Cannot change mode to rwxr-xr-x: Operation not permitted"
 		targetTarArgs+=( --no-overwrite-dir )
 	fi
+
+	# Exclude existing config file.
+	[[ -f ./config.php ]] && sourceTarArgs+=( --exclude "./config.php");
+
 	# loop over modular content in the source, and if it already exists in the destination, exclude it
 	# for contentPath in \
     # /usr/src/mlinvoice/modules/*
