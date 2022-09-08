@@ -41,7 +41,7 @@ RUN apt update && apt install zip; \
 ## Base for final images
 FROM base as final-codebase
 
-# Make source directory and move build filest there.
+# Make source directory and move build files there.
 RUN mkdir -p /usr/src/mlinvoice; \
     mv /build/* /usr/src/mlinvoice;
 
