@@ -34,6 +34,7 @@ group=www-data
 
 # Install entrypoint dependencies
 curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver > /usr/local/bin/semver
+chmod o+rx /usr/local/bin/semver
 
 # Setup correct user; (c) Docker, Inc
 	if [[ "$1" == apache2* ]] || [ "$1" = 'php-fpm' ]; then
