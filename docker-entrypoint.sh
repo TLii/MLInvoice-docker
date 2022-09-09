@@ -68,7 +68,11 @@ curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semv
 	fi
 
 # Test for existing installation and install as necessary; original code by Docker, Inc, edited by TLii
-if { { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]] } && [[ $(semver compare $(cat /var/www/html/version.php | grep softwareVersion | sed "s|$softwareVersion.*'\(.*\)';|\1|") $(cat /usr/src/mlinvoice/version.php | grep softwareVersion | sed "s|$softwareVersion.*'\(.*\)';|\1|")) -le 0 ]] }; then
+current_version=$(grep softwareVersion /var/www/html/version.php  | sed "s|$softwareVersion.*'\(.*\)';|\1|")
+src_version=$(grep softwareVersion  /usr/src/mlinvoice/version.php | sed "s|$softwareVersion.*'\(.*\)';|\1|")
+VERSIONS=$(semver compare $current_version $src_version )
+
+if { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]] } && [[ $VERSIONS -le 0 ]]; then
 
 	# Test that we are not overwriting a more recent version
 
