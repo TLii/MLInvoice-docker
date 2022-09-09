@@ -73,7 +73,7 @@ current_version=$(grep softwareVersion /var/www/html/version.php  | sed "s|$soft
 src_version=$(grep softwareVersion  /usr/src/mlinvoice/version.php | sed "s|$softwareVersion.*'\(.*\)';|\1|")
 VERSIONS=$(semver compare $current_version $src_version )
 
-if { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]] } && [[ $VERSIONS -le 0 ]]; then
+if { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]]; } && [[ $VERSIONS -le 0 ]]; then
 
 	# Test that we are not overwriting a more recent version
 
