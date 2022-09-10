@@ -30,9 +30,11 @@ group=www-data
 	[[ -z $DATABASE_USER ]] && (echo "ERROR: you need to set DATABASE_USER to continue"; exit 78)
 	[[ -z $DATABASE_PASSWORD ]] && (echo "ERROR: you need to set DATABASE_PASSWORD to continue"; exit 78)
 	[[ -z $DATABASE_HOST ]] && (echo "ERROR: you need to set DATABASE_HOST to continue"; exit 78)
-	[[ -z $SITE_URL ]] && echo "WARN: no SITE_URL set, using localhost" && SITE_URL='localhost'
+	[[ -z $SITE_URL ]] && (echo "WARN: no SITE_URL set, using localhost" && SITE_URL='localhost')
+echo >&2 "Necessary environment variables set, continuing..."
 
 # Install entrypoint dependencies
+echo >&2 "Installing entrypoint dependencies..."
 curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver > /usr/local/bin/semver
 chmod o+rx /usr/local/bin/semver
 
@@ -45,15 +47,17 @@ chmod o+rx /usr/local/bin/semver
 				apache2*)
 					user="${APACHE_RUN_USER:-www-data}"
 					group="${APACHE_RUN_GROUP:-www-data}"
-
+					echo >&2 "This is an apache2 image."
 					# strip off any '#' symbol ('#1000' is valid syntax for Apache)
 					pound='#'
 					user="${user#$pound}"
 					group="${group#$pound}"
 					;;
+					
 				*) # php-fpm
 					user='www-data'
 					group='www-data'
+					echo >&2 "This is a php-fpm image."
 					;;
 			esac
 		else
@@ -64,6 +68,7 @@ chmod o+rx /usr/local/bin/semver
 
 # Create necessary apache2 config changes to maintain directory similarities
 	if [[ "$1" == apache2* ]]; then
+	echo >&2 "Modifying apache2 config file to recognixe $SITE_URL..."
 		sed -i -e "s|www\.example\.com|$SITE_URL|g" -e "s|localhost|$SITE_URL|g" /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-available/default-ssl.conf;
 		sed -i /etc/apache2/conf-available/docker-php.conf;
 	fi
@@ -71,11 +76,15 @@ chmod o+rx /usr/local/bin/semver
 # Test for existing installation and install as necessary; original code by Docker, Inc, edited by TLii
 current_version=$(grep softwareVersion /var/www/html/version.php  | sed "s|$softwareVersion.*'\(.*\)';|\1|")
 src_version=$(grep softwareVersion  /usr/src/mlinvoice/version.php | sed "s|$softwareVersion.*'\(.*\)';|\1|")
-VERSIONS=$(semver compare $current_version $src_version )
+
+if [[ -f /var/www/html/version.php ]]; then 
+	VERSIONS=$(semver compare $current_version $src_version );
+else
+	# No installation found
+	VERSIONS=-2;
+fi
 
 if { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]]; } && [[ $VERSIONS -le 0 ]]; then
-
-	# Test that we are not overwriting a more recent version
 
     cd "/var/www/html"
 
@@ -83,8 +92,10 @@ if { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]
 	if [ "$uid" = '0' ] && [ "$(stat -c '%u:%g' .)" = '0:0' ]; then
 		chown "$user:$group" .
 	fi
-
-	echo >&1 "MLInvoice not found in $PWD - copying now..."
+	[[ $VERSIONS == -1 ]] && echo >&1 "MLInvoice not found in $PWD - copying now..."
+	[[ $VERSIONS == -1 ]] && echo >&2 "A new version of MLInvoice found, updating files..."
+	[[ $VERSIONS == 0 ]] && echo >&1 "MLInvoice version is the same as installed."
+	
 	if [ -n "$(find . -mindepth 1 -maxdepth 1)" ]; then
 		echo >&1 "WARNING: $PWD is not empty! (copying anyhow)"
 	fi
@@ -134,29 +145,36 @@ if { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]
 	# done¨
 	[[ ! -f /var/www/html/install.lock ]] && mysql --user=$DATABASE_USER --password=$DATABASE_PASSWORD --host=$DATABASE_HOST --database=$DATABASE_NAME /var/www/html/create_database.sql
 	touch /var/www/html/install.lock
-	echo >&2 "Complete! MLInvoice has been successfully copied to $PWD"
+	echo >&1 "Complete! MLInvoice has been successfully copied to $PWD"
+else
+	echo >&1 "MLInvoice is installed or a newer version was found. Not copying any files."
 fi
 
 # Replace config directives
+echo >&2 Replacing config directives with current environment variables...
 sed -i -r "s/define\('_DB_SERVER_', '.*?'\);/define('_DB_SERVER_', '$DATABASE_HOST');/" /var/www/html/config.php.sample && \
 sed -i -r "s/define\('_DB_USERNAME_', '.*?'\);/define('_DB_USERNAME_', '$DATABASE_USER');/" /var/www/html/config.php.sample && \
 sed -i -r "s/define\('_DB_PASSWORD_', '.*?'\);/define('_DB_PASSWORD_', '$DATABASE_PASSWORD');/" /var/www/html/config.php.sample
 sed -i -r "s/define\('_DB_NAME_', '.*?'\);/define('_DB_NAME_', '$DATABASE_NAME');/" /var/www/html/config.php.sample
 if [[ -n $ENCRYPTION_KEY ]]; then
     sed -i -r "s/define\('_ENCRYPTION_KEY_', '.*?'\);/define('_ENCRYPTION_KEY_', '$ENCRYPTION_KEY');/" /var/www/html/config.php.sample;
+	echo >&1 Using a predefined encryption key.
 else
     ENCRYPTION_KEY=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 132 ; echo '')
     sed -i -r "s/define\('_ENCRYPTION_KEY_', '.*?'\);/define('_ENCRYPTION_KEY_', '$ENCRYPTION_KEY');/" /var/www/html/config.php.sample;
+	echo >&1 Using a randomized encryption key. Keep in mind that if you lose your config file, this key is lost!
 fi
 if [[ -n $FORCE_HTTPS ]]; then
     sed -i -r "s/\/\/define\('_FORCE_HTTPS_', '.*?'\);/define('_FORCE_HTTPS_', true);/" /var/www/html/config.php.sample
+	echo >&1 "Forcing https in app level"
 fi
-
 
 # Wrap up with executing correct process with correct arguments
 if [[ "$1" == apache2* ]] && [ "${1#-}" != "$1" ]; then
+	echo >&2 "All done, running apache2 next..."
 	set -- apache2-foreground "$@"
 elif [ "${1#-}" != "$1" ]; then
+	echo >&2 "All done, running php-fpm next..."
 	set -- php-fpm "$@"
 fi
 
