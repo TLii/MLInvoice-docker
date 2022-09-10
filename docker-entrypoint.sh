@@ -30,7 +30,7 @@ group=www-data
 	[[ -z $DATABASE_USER ]] && (echo "ERROR: you need to set DATABASE_USER to continue"; exit 78)
 	[[ -z $DATABASE_PASSWORD ]] && (echo "ERROR: you need to set DATABASE_PASSWORD to continue"; exit 78)
 	[[ -z $DATABASE_HOST ]] && (echo "ERROR: you need to set DATABASE_HOST to continue"; exit 78)
-	[[ -z $SITE_URL ]] && (echo "WARN: no SITE_URL set, using localhost" && SITE_URL='localhost')
+	[[ -z $SITE_URL ]] && { echo "WARN: no SITE_URL set, using localhost" && SITE_URL='localhost'; }
 echo >&2 "Necessary environment variables set, continuing..."
 
 # Install entrypoint dependencies
