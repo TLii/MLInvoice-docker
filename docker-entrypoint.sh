@@ -169,6 +169,11 @@ if [[ -n $FORCE_HTTPS ]]; then
 	echo >&1 "Forcing https in app level"
 fi
 
+if [[ -n $DEVELOPER_MODE ]]; then 
+	ECHO >&2 "Use developer config for php..."
+	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini";
+fi
+
 echo >&2 "Bringing up container with arguments: '$*'"
 
 # Wrap up with executing correct process with correct arguments
