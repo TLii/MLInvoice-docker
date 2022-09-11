@@ -169,6 +169,8 @@ if [[ -n $FORCE_HTTPS ]]; then
 	echo >&1 "Forcing https in app level"
 fi
 
+echo >&2 "Bringing up container with arguments: '$*'"
+
 # Wrap up with executing correct process with correct arguments
 if [[ "$1" == apache2* ]] && [ "${1#-}" != "$1" ]; then
 	echo >&2 "All done, running apache2 next..."
@@ -176,6 +178,8 @@ if [[ "$1" == apache2* ]] && [ "${1#-}" != "$1" ]; then
 elif [ "${1#-}" != "$1" ]; then
 	echo >&2 "All done, running php-fpm next..."
 	set -- php-fpm "$@"
+else
+	echo >&1 "All done, running php-fpm as default."
 fi
 
 exec "$@"
