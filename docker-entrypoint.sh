@@ -184,7 +184,7 @@ elif [ "${1#-}" != "$1" ]; then
 	echo >&2 "All done, running php-fpm next..."
 	set -- php-fpm "$@"
 else
-	echo >&1 "All done, running php-fpm as default."
+	echo >&1 "All done, running provided command."
 fi
 
 exec "$@"
