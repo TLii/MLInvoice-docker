@@ -26,8 +26,12 @@ You **must** provide the image with the following environment variables:
 - DATABASE_PASSWORD: The password for the external db server.
 - DATABASE_SERVER: The hostname for the external db server.
 
+You *should* also provide SITE_URL. Otherwise "localhost" will be used, and you probably don't want this.   
+
 In addition to the mandatory environment variables there are some optional ones:
-- Nothing yet.
+- DEVELOPER_MODE: Enable php development config by setting this to any value (eg. `yes`)
+- ENCRYPTION_KEY: Use predefined encryption key for MLInvoice. **IMPORTANT**: If you don't define an encryption key, a random one will be used. If you then lose your config file, **all encrypted content will be lost.** Make sure you back up your config file (`/var/www/html/config.php`).
+- FORCE_HTTPS: MLInvoice can enforce the use of https. If you set this to any non-null value (eg. `yes`), https enforcing will be set in MLInvoice config. *Note: You probably want to leave this null and enforce HTTPS in the reverse proxy of your choice.*
 
 ## Helm chart?!
 Not yet.
