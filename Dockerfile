@@ -200,7 +200,8 @@ VOLUME /var/www/html
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY --from=final-codebase --chown=www-data:www-data /usr/src/mlinvoice /usr/src/mlinvoice
 
-RUN chmod a+x /docker-entrypoint.sh;
+RUN chmod a+x /docker-entrypoint.sh; \
+    chmod a+rwx /tmp
 
 EXPOSE 80
 
