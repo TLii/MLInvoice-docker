@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Unofficial MLInvoice containers
-# Copyright (C) 2022 Tuomas Liinamaa <tlii@iki.fi>
+# Copyright (C) 2024 Tuomas Liinamaa <tlii@iki.fi>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-# Partially derived from Docker Hub's official images; 
+# Partially derived from Docker Hub's official images;
 # Copyright 2014 Docker, Inc.set -e
 
 set -Eeo pipefail
@@ -53,7 +53,7 @@ chmod o+rx /usr/local/bin/semver
 					user="${user#$pound}"
 					group="${group#$pound}"
 					;;
-					
+
 				*) # php-fpm
 					user='www-data'
 					group='www-data'
@@ -77,7 +77,7 @@ chmod o+rx /usr/local/bin/semver
 current_version=$(grep softwareVersion /var/www/html/version.php  | sed "s|$softwareVersion.*'\(.*\)';|\1|")
 src_version=$(grep softwareVersion  /usr/src/mlinvoice/version.php | sed "s|$softwareVersion.*'\(.*\)';|\1|")
 
-if [[ -f /var/www/html/version.php ]]; then 
+if [[ -f /var/www/html/version.php ]]; then
 	VERSIONS=$(semver compare $current_version $src_version );
 else
 	# No installation found
@@ -95,7 +95,7 @@ if { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]
 	[[ $VERSIONS == -1 ]] && echo >&1 "MLInvoice not found in $PWD - copying now..."
 	[[ $VERSIONS == -1 ]] && echo >&2 "A new version of MLInvoice found, updating files..."
 	[[ $VERSIONS == 0 ]] && echo >&1 "MLInvoice version is the same as installed."
-	
+
 	if [ -n "$(find . -mindepth 1 -maxdepth 1)" ]; then
 		echo >&1 "WARNING: $PWD is not empty! (copying anyhow)"
 	fi
@@ -128,14 +128,14 @@ if { [[ ! -f /var/www/html/install.lock ]] || [[ ! -f /var/www/html/config.php ]
 	# 	# If contentPath exists in source and application directory, exclude it from overwrite
 	# 	contentPath="${contentPath#/usr/src/mlinvoice/}"
 	# 	if [ -e "$PWD/$contentPath" ]; then
-	# 		echo >&1 "INFO: '$PWD/$contentPath' exists. Updating only with newer content." 
+	# 		echo >&1 "INFO: '$PWD/$contentPath' exists. Updating only with newer content."
 	# 		#TODO: Make this check if update is in fact newer and patchable.
 	# 		sourceTarArgs+=( --exclude "./$contentPath" )
 	# 	fi
 	# done
 
 	tar "${sourceTarArgs[@]}" . | tar "${targetTarArgs[@]}"
-    
+
 	# # See if modules need updating; save backups to <install_dir>/upload/docker-upgrade-backups/
 	# mkdir -p $PWD/backup/docker-upgrade-backups
 	# for modulePath in \
@@ -169,7 +169,7 @@ if [[ -n $FORCE_HTTPS ]]; then
 	echo >&1 "Forcing https in app level"
 fi
 
-if [[ -n $DEVELOPER_MODE ]]; then 
+if [[ -n $DEVELOPER_MODE ]]; then
 	ECHO >&2 "Use developer config for php..."
 	mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini";
 fi
