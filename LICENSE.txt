@@ -1,5 +1,5 @@
 This Docker image source code is distributed under AGPL v3
-Copyright (C) Tuomas Liinamaa <tlii@iki.fi> 2022
+Copyright (C) Tuomas Liinamaa <tlii@iki.fi> 2022-2024
 
 Parts of entrypoint code is derived from Docker official images, copyright of Docker, Inc, originally licensed under Apache License 2.0.
 
