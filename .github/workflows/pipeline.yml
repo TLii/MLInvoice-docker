@@ -58,7 +58,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5.6
       with:
         # Name of the Docker image
-        image: ${{ env.CONTAINER_IMAGE }}
+        image: ${{ vars.CONTAINER_IMAGE }}
         # Tags override for Docker image
         tags: base, base-latest, base-${{ env.BRANCH }}-latest, base-${{ env.BRANCH }}, base-${{ env.BUILD_VERSION }}, base-${{ env.GITHUB_HASH }}, base-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}, base-${{ env.MLINVOICE_VERSION }}  # optional
         # Target Docker registry
@@ -85,7 +85,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5.6
       with:
         # Name of the Docker image
-        image: ${{ env.CONTAINER_IMAGE }}
+        image: ${{ vars.CONTAINER_IMAGE }}
         # Tags override for Docker image
         tags: base-${{ env.BRANCH }}-latest, base-${{ env.BRANCH }}, base-${{ env.BUILD_VERSION }}, base-${{ env.GITHUB_HASH }}, base-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }} # optional
         # Target Docker registry
@@ -112,7 +112,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5.6
       with:
         # Name of the Docker image
-        image: ${{ env.CONTAINER_IMAGE }}
+        image: ${{ vars.CONTAINER_IMAGE }}
         # Tags override for Docker image
         tags: fpm, fpm-latest, fpm-${{ env.BRANCH }}-latest, fpm-${{ env.BRANCH }}, fpm-${{ env.BUILD_VERSION }}, fpm-${{ env.GITHUB_HASH }}, fpm-${{ env.MLINVOICE_VERSION }}, fpm-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
@@ -139,7 +139,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5.6
       with:
         # Name of the Docker image
-        image: ${{ env.CONTAINER_IMAGE }}
+        image: ${{ vars.CONTAINER_IMAGE }}
         # Tags override for Docker image
         tags: fpm-${{ env.BRANCH }}-latest, fpm-${{ env.BRANCH }}, fpm-${{ env.BUILD_VERSION }}, fpm-${{ env.GITHUB_HASH }}, fpm-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
@@ -166,7 +166,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5.6
       with:
         # Name of the Docker image
-        image: ${{ env.CONTAINER_IMAGE }}
+        image: ${{ vars.CONTAINER_IMAGE }}
         # Tags override for Docker image
         tags: latest, apache2, apache2-latest, apache2-${{ env.BRANCH }}-latest, apache2-${{ env.BRANCH }}, apache2-${{ env.BUILD_VERSION }}, apache2-${{ env.GITHUB_HASH }}, ${{ env.MLINVOICE_VERSION }}, ${{ env.MLINVOICE_VERSION }}-latest, apache2-${{ env.MLINVOICE_VERSION }}, apache2-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
@@ -193,7 +193,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5.6
       with:
         # Name of the Docker image
-        image: ${{ env.CONTAINER_IMAGE }}
+        image: ${{ vars.CONTAINER_IMAGE }}
         # Tags override for Docker image
         tags: apache2-${{ env.BRANCH }}-latest, apache2-${{ env.BRANCH }}, apache2-${{ env.BUILD_VERSION }}, apache2-${{ env.GITHUB_HASH }}, ${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}, apache2-${{ env.MLINVOICE_VERSION }}-${{ env.BRANCH }}  # optional
         # Target Docker registry
